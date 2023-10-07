@@ -10,6 +10,7 @@ from utils.loss_functions import ChamferLossKL, calc_kl, calc_reconstruction_los
 from torch.utils.data import DataLoader
 import torchvision.utils as vutils
 # datasets
+from datasets.calvin_dataset import CalvinDataset, CalvinDatasetSmall
 from datasets.traffic_ds import TrafficDataset
 from datasets.clevrer_ds import CLEVRERDataset
 # util functions
@@ -33,6 +34,17 @@ def evaluate_validation_elbo(model, ds, epoch, batch_size=100, recon_loss_type="
         # root = '/media/newhd/data/clevrer/valid/clevrer_img128np_fs3_valid.npy'
         mode = 'single'
         dataset = CLEVRERDataset(path_to_npy=root, image_size=image_size, mode=mode, train=False)
+    elif ds == 'calvin':
+        image_size = 128
+        # data_path = '/media/tim/E/datasets/task_D_D/validation'
+        # data_path = '/media/tim/D/datasets_reduced/D_D_door/validation'
+        data_path = '/media/tim/E/task_ABC_D/validation'
+        mode = 'single'
+        dataset_mode = 'full'
+        if dataset_mode == 'caption':
+            dataset = CalvinDatasetSmall('/media/tim/E/datasets/task_D_D/validation', '/media/tim/E/datasets/task_D_D/validation/lang_annotations/auto_lang_ann.npy')
+        else:
+            dataset = CalvinDataset(data_path=data_path, image_size=image_size)
     else:
         raise NotImplementedError
 
@@ -60,6 +72,12 @@ def evaluate_validation_elbo(model, ds, epoch, batch_size=100, recon_loss_type="
             else:
                 x = batch[0].to(device)
                 x_prior = batch[1].to(device)
+        elif ds == 'calvin':
+            if mode == 'single':
+                x = batch.to(device)
+                x_prior = x
+            else:
+                raise NotImplementedError
         else:
             x = batch
             x_prior = x

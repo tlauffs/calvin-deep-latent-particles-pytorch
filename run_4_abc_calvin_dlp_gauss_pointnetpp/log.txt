@@ -1,0 +1,24 @@
+epoch 0 summary for dec backbone: gauss_pointnetpp
+loss: 398692.392, rec: 387412.242, kl: 376.005
+kl_balance: 0.0010, kl_kp: 375.062, kl_feat: 942.659
+mu max: 0.9375594258308411, mu min: -0.8541129231452942
+val loss (freq: 1): 100000000.000, best: 100000000.000 @ epoch: 0
+obj_on max: 0.9999992847442627, obj_on min: 9.773860801942647e-05
+mean psnr: 22.884
+bb scores: max: 34.59, min: 11.60, mean: 27.27
+epoch 1 summary for dec backbone: gauss_pointnetpp
+loss: 207002.853, rec: 193841.645, kl: 438.707
+kl_balance: 0.0010, kl_kp: 437.524, kl_feat: 1183.048
+mu max: 0.9501878023147583, mu min: -0.8418375253677368
+val loss (freq: 1): 1309809.375, best: 1309809.375 @ epoch: 0
+obj_on max: 0.9999997615814209, obj_on min: 0.0005482693668454885
+mean psnr: 26.080
+bb scores: max: 32.43, min: 17.31, mean: 27.46
+epoch 2 summary for dec backbone: gauss_pointnetpp
+loss: 166982.508, rec: 152524.017, kl: 481.950
+kl_balance: 0.0010, kl_kp: 480.445, kl_feat: 1504.731
+mu max: 0.9464958906173706, mu min: -0.8543424606323242
+val loss (freq: 1): 1339972.000, best: 1309809.375 @ epoch: 0
+obj_on max: 1.0, obj_on min: 0.0018293788889423013
+mean psnr: 27.587
+bb scores: max: 34.86, min: 14.92, mean: 27.01

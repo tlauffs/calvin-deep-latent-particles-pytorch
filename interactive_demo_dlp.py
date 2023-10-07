@@ -228,7 +228,8 @@ if __name__ == '__main__':
         dec_bone = "gauss_pointnetpp"
         exclusive_patches = False
     elif ds == 'clevrer':
-        path_to_model_ckpt = './checkpoints/dlp_clevrer_gauss_pointnetpp_orig.pth'
+        #path_to_model_ckpt = './checkpoints/dlp_clevrer_gauss_pointnetpp_orig.pth'
+        path_to_model_ckpt = './checkpoints/dlp_clevrer_gauss_pointnetpp.pth'
         image_size = 128
         ch = 3
         enc_channels = [32, 64, 128, 256]
@@ -241,6 +242,27 @@ if __name__ == '__main__':
         use_object_dec = True
         learned_feature_dim = 5
         # learned_feature_dim = 8
+        patch_size = 16
+        anchor_s = 0.25
+        dec_bone = "gauss_pointnetpp"
+        exclusive_patches = False
+    elif ds == 'calvin':
+        path_to_model_ckpt = './checkpoints/calvin_dlp_gauss_pointnetpp_best.pth'
+        # path_to_model_ckpt = './checkpoints/calvin_door_dlp_gauss_pointnetpp_best.pth'
+        # path_to_model_ckpt = './checkpoints/calvin_dlp_gauss_pointnetpp_ABC.pth'
+        # path_to_model_ckpt = './checkpoints/calvin_dlp_gauss_pointnetpp_ABC_best.pth'
+        image_size = 128
+        ch = 3
+        enc_channels = [32, 64, 128, 256]
+        prior_channels = (16, 32, 64)
+        imwidth = 160
+        crop = 16
+        n_kp_enc = 10  # total kp to output from the encoder / filter from prior
+        # n_kp_enc = 15
+        n_kp_prior = 20  # total kp to filter from prior
+        use_object_enc = True
+        use_object_dec = True
+        learned_feature_dim = 10
         patch_size = 16
         anchor_s = 0.25
         dec_bone = "gauss_pointnetpp"
@@ -265,7 +287,11 @@ if __name__ == '__main__':
         path_to_images = ['./checkpoints/sample_images/celeb/1.jpg', './checkpoints/sample_images/celeb/2.jpg',
                           './checkpoints/sample_images/celeb/3.jpg', './checkpoints/sample_images/celeb/4.jpg',
                           './checkpoints/sample_images/celeb/5.jpg', './checkpoints/sample_images/celeb/6.jpg',
-                          './checkpoints/sample_images/celeb/7.jpg', './checkpoints/sample_images/celeb/8.jpg']
+                          './checkpoints/sample_images/celeb/7.jpg', './checkpoints/sample_images/celeb/8.jpg',
+                          './checkpoints/sample_images/celeb/calvin_scene_A.png',
+                          './checkpoints/sample_images/celeb/calvin_scene_B.png',
+                          './checkpoints/sample_images/celeb/calvin_scene_C.png',
+                          './checkpoints/sample_images/celeb/calvin_scene_D.png']
         image_idx = min(image_idx, len(path_to_images) - 1)
         path_to_image = path_to_images[image_idx]
         im = Image.open(path_to_image)
@@ -279,7 +305,11 @@ if __name__ == '__main__':
             data = data[:, crop:-crop, crop:-crop]
         data = data.unsqueeze(0).to(device)
     elif ds == 'traffic':
-        path_to_images = ['./checkpoints/sample_images/traffic/1.png', ]
+        path_to_images = ['./checkpoints/sample_images/traffic/1.png', 
+                          './checkpoints/sample_images/traffic/calvin_scene_A.png',
+                          './checkpoints/sample_images/traffic/calvin_scene_B.png',
+                          './checkpoints/sample_images/traffic/calvin_scene_C.png',
+                          './checkpoints/sample_images/traffic/calvin_scene_D.png']
         image_idx = min(image_idx, len(path_to_images) - 1)
         path_to_image = path_to_images[image_idx]
         im = Image.open(path_to_image)
@@ -293,7 +323,11 @@ if __name__ == '__main__':
         logvar_threshold = 14.0  # threshold to filter particles
     elif ds == 'clevrer':
         path_to_images = ['./checkpoints/sample_images/clevrer/1.png',
-                          './checkpoints/sample_images/clevrer/2.png']
+                          './checkpoints/sample_images/clevrer/2.png',
+                          './checkpoints/sample_images/clevrer/calvin_scene_A.png',
+                          './checkpoints/sample_images/clevrer/calvin_scene_B.png',
+                          './checkpoints/sample_images/clevrer/calvin_scene_C.png',
+                          './checkpoints/sample_images/clevrer/calvin_scene_D.png']
         image_idx = min(image_idx, len(path_to_images) - 1)
         path_to_image = path_to_images[image_idx]
         im = Image.open(path_to_image)
@@ -304,6 +338,24 @@ if __name__ == '__main__':
         data = data.unsqueeze(0).to(device)
         x = data
         logvar_threshold = 13.0  # threshold to filter particles
+    elif ds == 'calvin':
+        path_to_images = ['./checkpoints/sample_images/calvin/calvin_scene_A.png',
+                          './checkpoints/sample_images/calvin/calvin_scene_B.png',
+                          './checkpoints/sample_images/calvin/calvin_scene_C.png',
+                          './checkpoints/sample_images/calvin/calvin_scene_D.png',
+                          './checkpoints/sample_images/calvin/calvin_scene_D_2.png',
+                          './checkpoints/sample_images/calvin/calvin_scene_D_3.png',
+                          './checkpoints/sample_images/calvin/calvin_scene_D_4.png']
+        image_idx = min(image_idx, len(path_to_images) - 1)
+        path_to_image = path_to_images[image_idx]
+        im = Image.open(path_to_image)
+        im = im.convert('RGB')
+        im = im.resize((image_size, image_size), Image.BICUBIC)
+        trans = transforms.ToTensor()
+        data = trans(im)
+        data = data.unsqueeze(0).to(device)
+        x = data
+        logvar_threshold = 13.0
     else:
         raise NotImplementedError
 

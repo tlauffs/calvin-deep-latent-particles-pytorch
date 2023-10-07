@@ -30,6 +30,7 @@ from models import KeyPointVAE
 from datasets.celeba_dataset import CelebAPrunedAligned_MAFLVal, evaluate_lin_reg_on_mafl
 from datasets.traffic_ds import TrafficDataset
 from datasets.clevrer_ds import CLEVRERDataset
+from datasets.calvin_dataset import CalvinDataset, CalvinDatasetSmall
 from datasets.shapes_ds import generate_shape_dataset_torch
 # util functions
 from utils.util_func import plot_keypoints_on_image_batch, create_masks_fast, prepare_logdir, save_config, log_line,\
@@ -134,6 +135,21 @@ def train_dlp(ds="shapes", batch_size=16, lr=5e-4, device=torch.device("cpu"), k
         print('generating random shapes dataset')
         dataset = generate_shape_dataset_torch(num_images=40_000)
         milestones = (20, 40, 80)
+    elif ds == "calvin":
+        image_size = 128
+        ch = 3
+        enc_channels = [32, 64, 128, 256]
+        prior_channels = (16, 32, 64)
+        # data_path = '/media/tim/E/datasets/task_D_D/training'
+        # data_path = '/media/tim/D/datasets_reduced/D_D_door/training'
+        data_path = '/media/tim/E/task_ABC_D/training'
+        mode = 'single'
+        dataset_mode = 'full'
+        if dataset_mode == 'caption':
+            dataset = CalvinDatasetSmall('/media/tim/E/datasets/task_D_D/training', '/media/tim/E/datasets/task_D_D/training/lang_annotations/auto_lang_ann.npy')
+        else:
+            dataset = CalvinDataset(data_path=data_path, image_size=image_size)
+        milestones = (50, 100, 200)
     else:
         raise NotImplementedError
 
@@ -255,6 +271,9 @@ def train_dlp(ds="shapes", batch_size=16, lr=5e-4, device=torch.device("cpu"), k
                     x_prior = batch[1].to(device)
             elif ds == 'shapes':
                 x = batch[0].to(device)
+                x_prior = x
+            elif ds == 'calvin':
+                x = batch.to(device)
                 x_prior = x
             else:
                 x = batch.to(device)
@@ -502,7 +521,7 @@ def train_dlp(ds="shapes", batch_size=16, lr=5e-4, device=torch.device("cpu"), k
                 print(linreg_str)
                 log_line(log_dir, linreg_str)
             else:
-                if ds in ['traffic', 'clevrer']:
+                if ds in ['traffic', 'clevrer', 'calvin']:
                     valid_loss = evaluate_validation_elbo(model, ds, epoch, batch_size=batch_size,
                                                           recon_loss_type=recon_loss_type, device=device,
                                                           save_image=True, fig_dir=fig_dir, topk=topk,
@@ -605,9 +624,12 @@ if __name__ == "__main__":
     lr = 2e-4
     batch_size = 64
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    num_epochs = 100
+    print(device)
+    num_epochs = 1000
+    #load_model = False
     load_model = False
-    eval_epoch_freq = 2
+    eval_epoch_freq = 1
+    #eval_epoch_freq = 5
     n_kp = 1  # num kp per patch
     mask_threshold = 0.2  # mask threshold for the features from the encoder
     kp_range = (-1, 1)
@@ -697,6 +719,25 @@ if __name__ == "__main__":
         # override manually
         lr = 1e-3
         batch_size = 64
+    elif args.dataset == 'calvin':
+        beta_kl = 30.0
+        beta_rec = 1.0
+        n_kp_enc = 10  # total kp to output from the encoder / filter from prior
+        n_kp_prior = 20
+        patch_size = 16
+        learned_feature_dim = 10  # additional features than x,y for each kp
+        dec_bone = "gauss_pointnetpp"
+        topk = min(10, n_kp_enc)  # display top-10 kp with smallest variance
+        recon_loss_type = "vgg"
+        use_tps = False
+        use_pairs = False
+        use_object_enc = True  # separate object encoder
+        use_object_dec = True  # separate object decoder
+        warmup_epoch = 0
+        if load_model: warmup_epoch = 0
+        anchor_s = 0.25
+        kl_balance = 0.001
+        exclusive_patches = False
     else:
         raise NotImplementedError("unrecognized dataset, please implement it and add it to the train script")
 
@@ -723,6 +764,8 @@ if __name__ == "__main__":
         kl_balance = args.kl_balance
         exclusive_patches = args.exclusive_patches
 
+    batch_size = args.batch_size
+    #print("HERERERE: ", batch_size)
     model = train_dlp(ds=ds, batch_size=batch_size, lr=lr,
                       device=device, num_epochs=num_epochs, kp_activation=kp_activation,
                       load_model=load_model, n_kp=n_kp, use_logsoftmax=use_logsoftmax, pad_mode=pad_mode,

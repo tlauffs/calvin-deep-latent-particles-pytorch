@@ -347,7 +347,8 @@ def prepare_logdir(runname, src_dir='./'):
     """
     Prepare the log directory in which checkpoints, plots and stats will be saved.
     """
-    td_prefix = datetime.datetime.now().strftime("%d%m%y_%H%M%S")
+    # td_prefix = datetime.datetime.now().strftime("%d%m%y_%H%M%S")
+    td_prefix = 'run_4_abc'
     dir_name = f'{td_prefix}_{runname}'
     path_to_dir = os.path.join(src_dir, dir_name)
     os.makedirs(path_to_dir, exist_ok=True)
