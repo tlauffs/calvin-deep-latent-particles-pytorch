@@ -339,7 +339,8 @@ if __name__ == '__main__':
         x = data
         logvar_threshold = 13.0  # threshold to filter particles
     elif ds == 'calvin':
-        path_to_images = ['./checkpoints/sample_images/calvin/calvin_scene_A.png',
+        path_to_images = ['./checkpoints/sample_images/calvin/calvin_D_5.png',
+                          './checkpoints/sample_images/calvin/calvin_scene_A.png',
                           './checkpoints/sample_images/calvin/calvin_scene_B.png',
                           './checkpoints/sample_images/calvin/calvin_scene_C.png',
                           './checkpoints/sample_images/calvin/calvin_scene_D.png',
