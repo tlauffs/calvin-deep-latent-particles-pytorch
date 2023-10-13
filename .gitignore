@@ -1,0 +1,4 @@
+*.pyc
+__pycache__/
+tracked_keypoints_video_long.avi
+tracked_keypoints_video_2.avi
