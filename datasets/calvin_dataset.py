@@ -6,6 +6,9 @@ import torch
 import torchvision.transforms as transforms
 from torch.utils.data import Dataset
 
+'''
+    Full dataset
+'''
 class CalvinDataset(Dataset):
     def __init__(self, data_path=None, image_size=128):
 
@@ -30,6 +33,9 @@ class CalvinDataset(Dataset):
         img_static = self.transform(img_static)
         return img_static
 
+'''
+    Dataset containing on images that are annotated
+'''
 class CalvinDatasetSmall(Dataset):
     def __init__(self, data_path=None, caption_path=None, image_size=128):
 
