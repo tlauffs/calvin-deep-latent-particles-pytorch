@@ -1,21 +1,21 @@
 # Calvin + deep-latent-particles-pytorch
 
 <p> This is a fork of the deep-latent-particles-pytorch repository: 
-  <a href="https://github.com/taldatech/deep-latent-particles-pytorch">original DLP reposository</a>
+  <a target="_blank" href="https://github.com/taldatech/deep-latent-particles-pytorch">original DLP reposository</a>
 </p>
 <p align="center">
   <img src="results/calvin_image_manipulation.gif" height="120">
 </p>
 <p> The repository has been modified to allow for training on the CALVIN dataset:</p>
 <p> The CALVIN dataset can be found and downloaded from: 
-  <a href="https://github.com/mees/calvin/tree/main/da">CALVIN Datasets</a>
+  <a  target="_blank" href="https://github.com/mees/calvin/tree/main/dataset">CALVIN Datasets</a>
 </p>
 
 ## Setup
 The Project setup is analog to the original DLP setup: The README for the original repository can be found below
 ## Training
-To train the DLP on CALVIN us:
-`python train_dlp.py --dataset calvin`
+To train the DLP on CALVIN use: `python train_dlp.py --dataset calvin`
+
 (Model parameters and the datapath can be changed in the `train_dlp.py ` file)
 
 <p> Pre-trained models can be downloaded from:
