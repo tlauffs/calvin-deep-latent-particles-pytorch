@@ -140,8 +140,6 @@ def train_dlp(ds="shapes", batch_size=16, lr=5e-4, device=torch.device("cpu"), k
         ch = 3
         enc_channels = [32, 64, 128, 256]
         prior_channels = (16, 32, 64)
-        # data_path = '/media/tim/E/datasets/task_D_D/training'
-        # data_path = '/media/tim/D/datasets_reduced/D_D_door/training'
         data_path = '/media/tim/E/task_ABC_D/training'
         mode = 'single'
         dataset_mode = 'full'
@@ -280,7 +278,7 @@ def train_dlp(ds="shapes", batch_size=16, lr=5e-4, device=torch.device("cpu"), k
                 x_prior = x
             batch_size = x.shape[0]
             # forward pass
-            noisy_masks = (epoch < 5 * warmup_epoch)  # add small noise to the alpha masks
+            noisy_masks = (epoch < warmup_epoch + 1)  # add small noise to the alpha masks
             model_output = model(x, x_prior=x_prior, warmup=(epoch < warmup_epoch), noisy_masks=noisy_masks)
             mu_p = model_output['kp_p']
             gmap = model_output['gmap']
@@ -733,7 +731,7 @@ if __name__ == "__main__":
         use_pairs = False
         use_object_enc = True  # separate object encoder
         use_object_dec = True  # separate object decoder
-        warmup_epoch = 0
+        warmup_epoch = 1
         if load_model: warmup_epoch = 0
         anchor_s = 0.25
         kl_balance = 0.001
