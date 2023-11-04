@@ -16,8 +16,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 import argparse
 
-matplotlib.use('Qt5Agg')
-
+# matplotlib.use('Qt5Agg')
 
 def update_from_slider(val):
     for i in np.arange(N - 1):
@@ -247,7 +246,7 @@ if __name__ == '__main__':
         dec_bone = "gauss_pointnetpp"
         exclusive_patches = False
     elif ds == 'calvin':
-        path_to_model_ckpt = './checkpoints/calvin_dlp_gauss_pointnetpp_best.pth'
+        path_to_model_ckpt = './checkpoints/dlp_calvin_d_d_gauss_pointnetpp_best.pth'
         # path_to_model_ckpt = './run_final_abc_calvin_dlp_gauss_pointnetpp/saves/calvin__abc_new_dlp_gauss_pointnetpp_best.pth'
         image_size = 128
         ch = 3

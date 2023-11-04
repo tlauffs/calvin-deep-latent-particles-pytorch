@@ -4,11 +4,11 @@
   <a target="_blank" href="https://github.com/taldatech/deep-latent-particles-pytorch">original DLP reposository</a>
 </p>
 <p align="center">
-  <img src="results/calvin_image_manipulation.gif" height="120">
+  <img src="results/calvin_image_manipulation.gif" height="200">
 </p>
 <p> The repository has been modified to allow for training on the CALVIN dataset:</p>
 <p> The CALVIN dataset can be found and downloaded from: 
-  <a  target="_blank" href="https://github.com/mees/calvin/tree/main/dataset">CALVIN Datasets</a>
+  <a target="_blank" href="https://github.com/mees/calvin/tree/main/dataset">CALVIN Datasets</a>
 </p>
 
 ## Setup
@@ -19,7 +19,7 @@ To train the DLP on CALVIN use: `python train_dlp.py --dataset calvin`
 (Model parameters and the datapath can be changed in the `train_dlp.py ` file)
 
 <p> Pre-trained models can be downloaded from:
-  <a href="https://uni-bielefeld.sciebo.de/s/LL7j7pHryvIMbRk">https://uni-bielefeld.sciebo.de/s/LL7j7pHryvIMbRk</a>
+  <a target="_blank" href="https://uni-bielefeld.sciebo.de/s/LL7j7pHryvIMbRk">https://uni-bielefeld.sciebo.de/s/LL7j7pHryvIMbRk</a>
 </p>
 
 
@@ -36,6 +36,8 @@ the `eval_tracking.ipynb` notebook guides you through the use of the keypoint tr
 ## Results
 Images/videos of results are found in `/results`
 
+
+## deep-latent-particles-pytorch README:
 # deep-latent-particles-pytorch
 
 [ICML 2022] Official PyTorch implementation of the paper "Unsupervised Image Representation Learning with Deep Latent Particles"
