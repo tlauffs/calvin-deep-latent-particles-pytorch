@@ -19,7 +19,7 @@ To train the DLP on CALVIN use: `python train_dlp.py --dataset calvin`
 (Model parameters and the datapath can be changed in the `train_dlp.py ` file)
 
 <p> Pre-trained models can be downloaded from (in DLP folder):
-  <a target="_blank" href="https://uni-bielefeld.sciebo.de/s/LL7j7pHryvIMbRk">https://uni-bielefeld.sciebo.de/s/meuImSy6gCUVKQI</a>
+  <a target="_blank" href="https://uni-bielefeld.sciebo.de/s/meuImSy6gCUVKQI">https://uni-bielefeld.sciebo.de/s/meuImSy6gCUVKQI</a>
 </p>
 
 
