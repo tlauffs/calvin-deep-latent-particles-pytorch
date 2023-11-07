@@ -30,6 +30,8 @@ To use the interactive GUI with CALVIN use:
 
 -i is the index of the input image (can be adjusted form 0-6)
 
+Checkpoint path needs to be adjusted in the file
+
 ## Keypoint Tracking
 the `eval_tracking.ipynb` notebook guides you through the use of the keypoint tracking method:
 
