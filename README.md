@@ -33,7 +33,7 @@ To use the interactive GUI with CALVIN use:
 Checkpoint path needs to be adjusted in the file
 
 ## Keypoint Tracking
-the `eval_tracking.ipynb` notebook guides you through the use of the keypoint tracking method:
+the `eval_tracking.ipynb` notebook guides you through the use of the keypoint tracking method.
 
 ## Results
 Images/videos of results are found in `/results`
