@@ -37,7 +37,7 @@ the `eval_tracking.ipynb` notebook guides you through the use of the keypoint tr
 Images/videos of results are found in `/results`
 
 
-## deep-latent-particles-pytorch README:
+## Official deep-latent-particles-pytorch README:
 # deep-latent-particles-pytorch
 
 [ICML 2022] Official PyTorch implementation of the paper "Unsupervised Image Representation Learning with Deep Latent Particles"
